@@ -1,0 +1,68 @@
+/* 21 VIEWS 
+
+Created by Patrick Mensah 
+Date Created: 04/14/2023
+Description:  Views 
+*/
+--A view is simply a query that's saved and can be executed repeatedly or referenced by other queries.
+
+
+SELECT
+    ROUND(AVG(Total),2) AS 'Average Total'
+FROM
+    Invoice
+    
+-- Suppose want to save it as a view 
+
+CREATE VIEW V_AverageTotal AS
+    SELECT
+    ROUND(AVG(Total),2) AS 'Average Total'
+FROM
+    Invoice
+--This will not show a results but can be seen in the datebase under views 
+
+--EDITING A VIEW
+---This can be done by rightclicking on the view folder under database and clicking on edit view 
+
+--JOINING VIEWS
+--Assuming we have these queries from different tables below 
+
+SELECT 
+    i.InvoiceId,
+    i.UnitPrice,
+    i.Quantity,
+    t.Name,
+    t.Composer,
+    t.Milliseconds
+FROM 
+    InvoiceLine i
+INNER JOIN
+    Track t
+ON
+    i.TrackId = t.TrackId
+    
+--Assumming we want to create a view on this so we can use it multiple times 
+
+CREATE VIEW V_Tracks_InvoiceLine AS
+SELECT 
+    i.InvoiceId,
+    i.UnitPrice,
+    i.Quantity,
+    t.Name,
+    t.Composer,
+    t.Milliseconds
+FROM 
+    InvoiceLine i
+INNER JOIN
+    Track t
+ON
+    i.TrackId = t.TrackId
+
+
+
+--DELETING A VIEW 
+--One way to do this is by rightclicking on the bottom and delete it. 
+-- Another way is to use the query below 
+DROP VIEW 
+    V_AverageTotal
+    
